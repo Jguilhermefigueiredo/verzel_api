@@ -1,0 +1,33 @@
+# ==========================================
+# TEMPLATE - application-local.properties
+# ==========================================
+# Copie este arquivo para application-local.properties
+# e preencha com suas credenciais reais
+# O arquivo application-local.properties NÃO será versionado
+
+# ==========================================
+# OpenAI API
+# ==========================================
+spring.ai.openai.api-key=sk-proj-your-openai-key-here
+openai.api.key=sk-proj-your-openai-key-here
+openai.api.url=https://api.openai.com/v1
+openai.model=gpt-4o-mini
+
+# ==========================================
+# Calendly API
+# ==========================================
+calendly.api.token=your-calendly-token-here
+calendly.api.url=https://api.calendly.com
+
+# ==========================================
+# Pipefy API
+# ==========================================
+pipefy.api.token=your-pipefy-token-here
+pipefy.api.url=https://api.pipefy.com/graphql
+pipefy.pipe.id=306758379
+
+# ==========================================
+# Server
+# ==========================================
+server.port=8080
+

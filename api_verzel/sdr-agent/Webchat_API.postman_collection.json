@@ -1,0 +1,192 @@
+{
+  "info": {
+    "name": "SDR Agent - Webchat API",
+    "description": "Collection para testar a API REST do Webchat SDR Agent",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "sessionId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Iniciar Sessão",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.collectionVariables.set(\"sessionId\", jsonData.sessionId);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/session",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "session"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. Enviar Mensagem - Saudação",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"message\": \"Olá, tudo bem?\",\n  \"role\": \"user\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/message",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "message"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4. Enviar Mensagem - Interesse em Reunião",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"message\": \"Gostaria de agendar uma reunião\",\n  \"role\": \"user\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/message",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "message"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5. Obter Histórico",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/history/{{sessionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "history", "{{sessionId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "6. Listar Horários Disponíveis",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/slots",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "slots"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7. Agendar Reunião",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"slot\": \"2025-10-30T10:00:00-03:00\",\n  \"nome\": \"João Silva\",\n  \"email\": \"joao@empresa.com\",\n  \"empresa\": \"Empresa XYZ\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/webchat/schedule",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "webchat", "schedule"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Chat Controller - Salvar Mensagem (Antigo)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sessionId\": \"{{sessionId}}\",\n  \"content\": \"Teste de mensagem\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/message",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "message"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Chat Controller - Obter Histórico (Antigo)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/chat/history/{{sessionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "history", "{{sessionId}}"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
+
